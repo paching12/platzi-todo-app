@@ -8,6 +8,10 @@ import { TodoItem } from "./components/TodoItem";
 import { TodoSearch } from "./components/TodoSearch";
 import { CreateButton } from "./components/CreateButton";
 import { Header } from "./components/Header";
+import { LoaderScreen } from "./components/Loader/LoaderScreen";
+
+// Custom hooks
+import { useLocalStorage } from "./customHooks/useLocalStorage";
 
 const defaultTodos = [
   {
@@ -25,7 +29,7 @@ const defaultTodos = [
 ];
 
 function App() {
-  const [todos, setTodos] = React.useState(defaultTodos);
+  const [todos, setTodos, saveTodos] = useLocalStorage("TODOS_V1");
   const [search, setSearch] = React.useState("");
 
   const completedTodos = todos.filter((element) => element.completed);
@@ -47,12 +51,12 @@ function App() {
       if (item && i === index) item.completed = !item.completed;
       return item;
     });
-    setTodos(newTodos);
+    saveTodos(newTodos);
   };
 
   const handleDelete = (index) => {
     const newTodos = todos.filter((item, i) => item && index !== i);
-    setTodos(newTodos);
+    saveTodos(newTodos);
   };
 
   const handleClick = () => {
@@ -61,6 +65,7 @@ function App() {
 
   return (
     <React.Fragment>
+      <LoaderScreen />
       <Header />
       <p className="TodoTitle">
         <span className="title">To-DO MACHINE</span>
