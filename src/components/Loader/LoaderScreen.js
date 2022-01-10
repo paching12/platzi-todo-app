@@ -21,10 +21,28 @@ const phrases = [
   },
 ];
 
+const getRandomInt = (max) => {
+  return Math.floor(Math.random() * max);
+};
+
+const selectPhrase = () => {
+  const randomNumber = getRandomInt(phrases.length - 1);
+  return phrases[randomNumber];
+};
+
 const LoaderScreen = (props) => {
+  const phrase = selectPhrase();
   return (
     <div className="LoaderScreen">
-      <Loader />
+      <div className="phrases">
+        "{phrase.text}"
+        <div className="author">
+          <small>-{phrase.autor}</small>
+        </div>
+      </div>
+      <div className="loader">
+        <Loader />
+      </div>
     </div>
   );
 };

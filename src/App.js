@@ -28,26 +28,35 @@ const defaultTodos = [
   },
 ];
 
-function App() {
-  const [todos, setTodos, saveTodos] = useLocalStorage("TODOS_V1");
+const App = () => {
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(false);
+  const [todosFiltered, setTodosFiltered] = React.useState([]);
   const [search, setSearch] = React.useState("");
 
+  const { items: todos, saveItems: saveTodos } = useLocalStorage(
+    "TODOS_V1",
+    setLoading,
+    setError
+  );
   const completedTodos = todos.filter((element) => element.completed);
 
   React.useEffect(() => {
-    const newTodos = todos.map((todo) => {
+    setTodosFiltered(todos);
+  }, [todos]);
+
+  React.useEffect(() => {
+    const newTodos = todos.filter((todo) => {
       if (todo.text) {
         const text = todo.text.toLowerCase();
-        if (text.includes(search.toLowerCase())) todo.show = true;
-        else todo.show = false;
+        return text.includes(search.toLowerCase());
       }
-      return todo;
     });
-    setTodos(newTodos);
+    setTodosFiltered(newTodos);
   }, [search]);
 
   const handleComplete = (index) => {
-    const newTodos = todos.map((item, i) => {
+    const newTodos = todosFiltered.map((item, i) => {
       if (item && i === index) item.completed = !item.completed;
       return item;
     });
@@ -65,7 +74,7 @@ function App() {
 
   return (
     <React.Fragment>
-      <LoaderScreen />
+      {loading && <LoaderScreen />}
       <Header />
       <p className="TodoTitle">
         <span className="title">To-DO MACHINE</span>
@@ -74,24 +83,25 @@ function App() {
       <TodoCounter completed={completedTodos.length} total={todos.length} />
       <TodoSearch search={search} setSearch={setSearch} />
       <TodoList>
-        {todos.map(
-          (item, index) =>
-            item.show !== false && (
-              <TodoItem
-                text={item.text}
-                completed={item.completed}
-                key={index}
-                onHandleComplete={() => handleComplete(index)}
-                onHandleDelete={() => handleDelete(index)}
-              />
-            )
+        {!loading && !todosFiltered.length && (
+          <p className="firstTodo">Crea tu primer TODO</p>
         )}
+        {error && <p>Oh oh! Ha ocurrido un error debido al gordons</p>}
+        {todosFiltered.map((item, index) => (
+          <TodoItem
+            text={item.text}
+            completed={item.completed}
+            key={index}
+            onHandleComplete={() => handleComplete(index)}
+            onHandleDelete={() => handleDelete(index)}
+          />
+        ))}
       </TodoList>
       <div className="center">
         <CreateButton name="add" text="+" onHandleClick={handleClick} />
       </div>
     </React.Fragment>
   );
-}
+};
 
 export default App;

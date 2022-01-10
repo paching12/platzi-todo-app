@@ -3,3 +3,10 @@ ul {
   padding: 0 0 56px 0;
   list-style: none;
 }
+
+.firstTodo {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.623);
+  font-weight: lighter;
+  font-size: 15px;
+}
