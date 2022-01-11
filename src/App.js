@@ -1,6 +1,9 @@
 import React from "react";
 import "./App.css";
 
+// TodoContext
+import { TodoContext } from "./TodoContext";
+
 // Components
 import { TodoCounter } from "./components/TodoCounter";
 import { TodoList } from "./components/TodoList";
@@ -10,8 +13,8 @@ import { CreateButton } from "./components/CreateButton";
 import { Header } from "./components/Header";
 import { LoaderScreen } from "./components/Loader/LoaderScreen";
 
-// Custom hooks
-import { useLocalStorage } from "./customHooks/useLocalStorage";
+// Portals
+import { Modal } from "./components/Modal";
 
 const defaultTodos = [
   {
@@ -29,60 +32,26 @@ const defaultTodos = [
 ];
 
 const App = () => {
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState(false);
-  const [todosFiltered, setTodosFiltered] = React.useState([]);
-  const [search, setSearch] = React.useState("");
-
-  const { items: todos, saveItems: saveTodos } = useLocalStorage(
-    "TODOS_V1",
-    setLoading,
-    setError
-  );
-  const completedTodos = todos.filter((element) => element.completed);
-
-  React.useEffect(() => {
-    setTodosFiltered(todos);
-  }, [todos]);
-
-  React.useEffect(() => {
-    const newTodos = todos.filter((todo) => {
-      if (todo.text) {
-        const text = todo.text.toLowerCase();
-        return text.includes(search.toLowerCase());
-      }
-    });
-    setTodosFiltered(newTodos);
-  }, [search]);
-
-  const handleComplete = (index) => {
-    const newTodos = todosFiltered.map((item, i) => {
-      if (item && i === index) item.completed = !item.completed;
-      return item;
-    });
-    saveTodos(newTodos);
-  };
-
-  const handleDelete = (index) => {
-    const newTodos = todos.filter((item, i) => item && index !== i);
-    saveTodos(newTodos);
-  };
-
-  const handleClick = () => {
-    console.log("click");
-  };
-
+  const {
+    handleComplete,
+    handleDelete,
+    loading,
+    error,
+    todosFiltered,
+    openModal,
+    setOpenModal,
+  } = React.useContext(TodoContext);
   return (
     <React.Fragment>
-      {loading && <LoaderScreen />}
       <Header />
       <p className="TodoTitle">
         <span className="title">To-DO MACHINE</span>
         <span className="TodoIcon">🙌</span>
       </p>
-      <TodoCounter completed={completedTodos.length} total={todos.length} />
-      <TodoSearch search={search} setSearch={setSearch} />
+      <TodoCounter />
+      <TodoSearch />
       <TodoList>
+        {loading && <LoaderScreen />}
         {!loading && !todosFiltered.length && (
           <p className="firstTodo">Crea tu primer TODO</p>
         )}
@@ -98,8 +67,13 @@ const App = () => {
         ))}
       </TodoList>
       <div className="center">
-        <CreateButton name="add" text="+" onHandleClick={handleClick} />
+        <CreateButton name="add" text="+" />
       </div>
+      {!!openModal && (
+        <Modal>
+          <p>{todosFiltered[0]?.text}</p>
+        </Modal>
+      )}
     </React.Fragment>
   );
 };
