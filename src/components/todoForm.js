@@ -33,7 +33,8 @@ const TodoForm = () => {
 
   return (
     <form onSubmit={onHandleSubmit} className="TodoForm">
-      <label>Escribe tu nuevo TODO 📝</label>
+      <div className="TodoForm-icon-title">📝</div>
+      <label>Escribe tu nuevo TODO </label>
       <textarea
         onKeyUp={onKeyUp}
         onChange={onHandleChange}

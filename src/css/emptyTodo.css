@@ -1,3 +1,16 @@
 .firstTodo-icon {
   font-size: 175px;
 }
+
+.firstTodo-instructions {
+  color: #fff;
+  font-weight: lighter;
+  font-family: "Thasadith", sans-serif;
+}
+
+.firstTodo-icon-plus {
+  padding: 2px;
+  border-radius: 12px;
+  background-color: #61dafa;
+  box-shadow: 0px 5px 25px rgb(97 218 250 / 50%);
+}
