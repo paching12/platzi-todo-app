@@ -11,6 +11,7 @@ import { TodoItem } from "./components/TodoItem";
 import { TodoSearch } from "./components/TodoSearch";
 import { CreateButton } from "./components/CreateButton";
 import { Header } from "./components/Header";
+import { TodoForm } from "./components/todoForm";
 import { LoaderScreen } from "./components/Loader/LoaderScreen";
 
 // Portals
@@ -39,42 +40,46 @@ const App = () => {
     error,
     todosFiltered,
     openModal,
-    setOpenModal,
+    handleClickAdd,
   } = React.useContext(TodoContext);
   return (
-    <React.Fragment>
+    <div className="main-container">
       <Header />
-      <p className="TodoTitle">
-        <span className="title">To-DO MACHINE</span>
-        <span className="TodoIcon">🙌</span>
-      </p>
-      <TodoCounter />
-      <TodoSearch />
-      <TodoList>
-        {loading && <LoaderScreen />}
-        {!loading && !todosFiltered.length && (
-          <p className="firstTodo">Crea tu primer TODO</p>
+      <div className="app-content">
+        <p className="TodoTitle">
+          <span className="title">To-DO MACHINE</span>
+          <span className="TodoIcon">🙌</span>
+        </p>
+        <TodoCounter />
+        <TodoSearch />
+        <TodoList>
+          {loading && <LoaderScreen />}
+          {!loading && !todosFiltered.length && (
+            <p className="firstTodo">Crea tu primer TODO</p>
+          )}
+          {error && <p>Oh oh! Ha ocurrido un error debido al gordons</p>}
+          {todosFiltered.map((item, index) => (
+            <TodoItem
+              text={item.text}
+              completed={item.completed}
+              key={index}
+              onHandleComplete={() => handleComplete(index)}
+              onHandleDelete={() => handleDelete(index)}
+            />
+          ))}
+        </TodoList>
+        {!!openModal && (
+          <Modal>
+            <TodoForm />
+          </Modal>
         )}
-        {error && <p>Oh oh! Ha ocurrido un error debido al gordons</p>}
-        {todosFiltered.map((item, index) => (
-          <TodoItem
-            text={item.text}
-            completed={item.completed}
-            key={index}
-            onHandleComplete={() => handleComplete(index)}
-            onHandleDelete={() => handleDelete(index)}
-          />
-        ))}
-      </TodoList>
-      <div className="center">
-        <CreateButton name="add" text="+" />
       </div>
-      {!!openModal && (
-        <Modal>
-          <p>{todosFiltered[0]?.text}</p>
-        </Modal>
+      {!loading && (
+        <div className="center">
+          <CreateButton name="add" text="+" onHandleClick={handleClickAdd} />
+        </div>
       )}
-    </React.Fragment>
+    </div>
   );
 };
 

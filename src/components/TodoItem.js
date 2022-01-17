@@ -8,13 +8,13 @@ function TodoItem({ text, completed, onHandleComplete, onHandleDelete }) {
         className={`Icon Icon-check ${completed && "Icon-check--active"}`}
         onClick={onHandleComplete}
       >
-        √
+        ✔
       </span>
       <p className={`TodoItem-p ${completed && "TodoItem-p--complete"}`}>
         {text}
       </p>
       <span className="Icon Icon-delete" onClick={onHandleDelete}>
-        X
+        ✖
       </span>
     </li>
   );

@@ -17,6 +17,15 @@ const TodoProvider = (props) => {
 
   const completedTodos = todos.filter((element) => element.completed);
 
+  const handleAddTodo = (todo) => {
+    const newTodos = [...todos];
+    newTodos.push({
+      completed: false,
+      text: todo,
+    });
+    saveTodos(newTodos);
+  };
+
   const handleComplete = (index) => {
     const newTodos = todosFiltered.map((item, i) => {
       if (item && i === index) item.completed = !item.completed;
@@ -30,13 +39,13 @@ const TodoProvider = (props) => {
     saveTodos(newTodos);
   };
 
-  const handleClickAdd = () => {
-    console.log("click");
-  };
-
   const [todosFiltered, setTodosFiltered] = React.useState([]);
   const [search, setSearch] = React.useState("");
   const [openModal, setOpenModal] = React.useState(false);
+
+  const handleClickAdd = () => {
+    setOpenModal(!openModal);
+  };
 
   React.useEffect(() => {
     setTodosFiltered(todos);
@@ -48,9 +57,10 @@ const TodoProvider = (props) => {
         const text = todo.text.toLowerCase();
         return text.includes(search.toLowerCase());
       }
+      return todo;
     });
     setTodosFiltered(newTodos);
-  }, [search]);
+  }, [search, todos]);
 
   return (
     <TodoContext.Provider
@@ -71,6 +81,7 @@ const TodoProvider = (props) => {
         setTodosFiltered,
         openModal,
         setOpenModal,
+        handleAddTodo,
       }}
     >
       {props.children}
