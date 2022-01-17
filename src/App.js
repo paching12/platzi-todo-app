@@ -43,6 +43,7 @@ const App = () => {
     todosFiltered,
     openModal,
     handleClickAdd,
+    todos,
   } = React.useContext(TodoContext);
   return (
     <div className="main-container">
@@ -76,7 +77,11 @@ const App = () => {
         )}
       </div>
       {!loading && (
-        <div className="center">
+        <div
+          className={`center ${
+            todos.length && todos.length < 4 ? "mt-3" : ""
+          } `}
+        >
           <CreateButton name="add" text="+" onHandleClick={handleClickAdd} />
         </div>
       )}
