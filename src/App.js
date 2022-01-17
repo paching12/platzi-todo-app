@@ -65,7 +65,7 @@ const App = () => {
               completed={item.completed}
               key={index}
               onHandleComplete={() => handleComplete(index)}
-              onHandleDelete={() => handleDelete(index)}
+              onHandleDelete={() => handleDelete(item.text)}
             />
           ))}
           {loading && <ItemLoading />}

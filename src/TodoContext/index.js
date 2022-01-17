@@ -34,8 +34,10 @@ const TodoProvider = (props) => {
     saveTodos(newTodos);
   };
 
-  const handleDelete = (index) => {
-    const newTodos = todos.filter((item, i) => item && index !== i);
+  const handleDelete = (text) => {
+    const newTodos = todos.filter(
+      (item) => item && text.toLowerCase() !== item.text.toLowerCase()
+    );
     saveTodos(newTodos);
   };
 
