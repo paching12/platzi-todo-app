@@ -6,9 +6,9 @@ function CreateButton({
   onHandleClick,
 }) {
   return (
-    <button className="CreateTodoButton" name={name} onClick={onHandleClick}>
+    <div className="CreateTodoButton" name={name} onClick={onHandleClick}>
       {text}
-    </button>
+    </div>
   );
 }
 
