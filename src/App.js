@@ -12,7 +12,9 @@ import { TodoSearch } from "./components/TodoSearch";
 import { CreateButton } from "./components/CreateButton";
 import { Header } from "./components/Header";
 import { TodoForm } from "./components/todoForm";
+import { EmptyTodo } from "./components/EmptyTodo";
 import { LoaderScreen } from "./components/Loader/LoaderScreen";
+import { ItemLoading } from "./components/Loader/ItemLoading";
 
 // Portals
 import { Modal } from "./components/Modal";
@@ -54,9 +56,7 @@ const App = () => {
         <TodoSearch />
         <TodoList>
           {loading && <LoaderScreen />}
-          {!loading && !todosFiltered.length && (
-            <p className="firstTodo">Crea tu primer TODO</p>
-          )}
+          {!loading && !todosFiltered.length && <EmptyTodo />}
           {error && <p>Oh oh! Ha ocurrido un error debido al gordons</p>}
           {todosFiltered.map((item, index) => (
             <TodoItem
@@ -67,6 +67,7 @@ const App = () => {
               onHandleDelete={() => handleDelete(index)}
             />
           ))}
+          {loading && <ItemLoading />}
         </TodoList>
         {!!openModal && (
           <Modal>
