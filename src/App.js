@@ -15,7 +15,7 @@ import { Header } from "./components/Header";
 import { TodoForm } from "./components/todoForm";
 import { EmptyTodo } from "./components/EmptyTodo";
 import { LoaderScreen } from "./components/Loader/LoaderScreen";
-// import { ItemLoading } from "./components/Loader/ItemLoading";
+import { ItemLoading } from "./components/Loader/ItemLoading";
 
 // Portals
 import { Modal } from "./components/Modal";
@@ -49,12 +49,20 @@ const App = () => {
           <TodoSearch search={search} setSearch={setSearch} />
         </TodoHeader>
         <TodoList
+          search={search}
           searchedTodos={todosFiltered}
+          todos={todos}
           error={error}
           onError={() => <p>Oh oh! Ha ocurrido un error debido al gordons</p>}
           loading={loading}
           onLoading={() => <LoaderScreen />}
           onEmptyTodos={() => <EmptyTodo />}
+          onEmptySearchResults={(searchedText) => (
+            <p className="white center">
+              No hay resultados para {searchedText}
+            </p>
+          )}
+          onLoadingSkeleton={() => <ItemLoading />}
           render={(todo, index) => (
             <TodoItem
               text={todo.text}
