@@ -1,10 +1,11 @@
 import React from "react";
 import "./App.css";
 
-// TodoContext
-import { TodoContext } from "./TodoContext";
+// Custom hooks
+import { useTodos } from "./customHooks/useTodos";
 
 // Components
+import { TodoHeader } from "./components/TodoHeader/TodoHeader";
 import { TodoCounter } from "./components/TodoCounter";
 import { TodoList } from "./components/TodoList";
 import { TodoItem } from "./components/TodoItem";
@@ -14,25 +15,10 @@ import { Header } from "./components/Header";
 import { TodoForm } from "./components/todoForm";
 import { EmptyTodo } from "./components/EmptyTodo";
 import { LoaderScreen } from "./components/Loader/LoaderScreen";
-import { ItemLoading } from "./components/Loader/ItemLoading";
+// import { ItemLoading } from "./components/Loader/ItemLoading";
 
 // Portals
 import { Modal } from "./components/Modal";
-
-const defaultTodos = [
-  {
-    text: "Cortar Cebolla",
-    completed: true,
-  },
-  {
-    text: "Tomar el curso de react",
-    completed: false,
-  },
-  {
-    text: "Llorar con la llorona",
-    completed: false,
-  },
-];
 
 const App = () => {
   const {
@@ -44,7 +30,12 @@ const App = () => {
     openModal,
     handleClickAdd,
     todos,
-  } = React.useContext(TodoContext);
+    completedTodos,
+    search,
+    setSearch,
+    handleAddTodo,
+    setOpenModal,
+  } = useTodos();
   return (
     <div className="main-container">
       <Header />
@@ -53,9 +44,28 @@ const App = () => {
           <span className="title">To-DO MACHINE</span>
           <span className="TodoIcon">🙌</span>
         </p>
-        <TodoCounter />
-        <TodoSearch />
-        <TodoList>
+        <TodoHeader>
+          <TodoCounter totalTodos={todos} completedTodos={completedTodos} />
+          <TodoSearch search={search} setSearch={setSearch} />
+        </TodoHeader>
+        <TodoList
+          searchedTodos={todosFiltered}
+          error={error}
+          onError={() => <p>Oh oh! Ha ocurrido un error debido al gordons</p>}
+          loading={loading}
+          onLoading={() => <LoaderScreen />}
+          onEmptyTodos={() => <EmptyTodo />}
+          render={(todo, index) => (
+            <TodoItem
+              text={todo.text}
+              completed={todo.completed}
+              key={index}
+              onHandleComplete={() => handleComplete(index)}
+              onHandleDelete={() => handleDelete(todo.text)}
+            />
+          )}
+        />
+        {/* <TodoList>
           {loading && <LoaderScreen />}
           {!loading && !todosFiltered.length && <EmptyTodo />}
           {error && <p>Oh oh! Ha ocurrido un error debido al gordons</p>}
@@ -69,10 +79,13 @@ const App = () => {
             />
           ))}
           {loading && <ItemLoading />}
-        </TodoList>
+        </TodoList> */}
         {!!openModal && (
           <Modal>
-            <TodoForm />
+            <TodoForm
+              handleAddTodo={handleAddTodo}
+              setOpenModal={setOpenModal}
+            />
           </Modal>
         )}
       </div>

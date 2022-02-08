@@ -1,11 +1,9 @@
 import React from "react";
-import { TodoContext } from "../TodoContext";
 
 // Styles
 import "../css/todoForm.css";
 
-const TodoForm = () => {
-  const { handleAddTodo, setOpenModal } = React.useContext(TodoContext);
+const TodoForm = ({ handleAddTodo, setOpenModal }) => {
   const [newTodoValue, setNewTodoValue] = React.useState();
 
   const onHandleCancel = () => {

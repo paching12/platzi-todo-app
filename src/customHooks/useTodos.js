@@ -1,11 +1,8 @@
 import React from "react";
 // Custom hooks
-import { useLocalStorage } from "../customHooks/useLocalStorage";
+import { useLocalStorage } from "./useLocalStorage";
 
-const TodoContext = React.createContext();
-
-const TodoProvider = (props) => {
-  // Props to share
+const useTodos = () => {
   const {
     items: todos,
     saveItems: saveTodos,
@@ -64,31 +61,25 @@ const TodoProvider = (props) => {
     setTodosFiltered(newTodos);
   }, [search, todos]);
 
-  return (
-    <TodoContext.Provider
-      value={{
-        completedTodos,
-        todos,
-        saveTodos,
-        handleComplete,
-        handleDelete,
-        handleClickAdd,
-        loading,
-        setLoading,
-        error,
-        setError,
-        search,
-        setSearch,
-        todosFiltered,
-        setTodosFiltered,
-        openModal,
-        setOpenModal,
-        handleAddTodo,
-      }}
-    >
-      {props.children}
-    </TodoContext.Provider>
-  );
+  return {
+    completedTodos,
+    todos,
+    saveTodos,
+    handleComplete,
+    handleDelete,
+    handleClickAdd,
+    loading,
+    setLoading,
+    error,
+    setError,
+    search,
+    setSearch,
+    todosFiltered,
+    setTodosFiltered,
+    openModal,
+    setOpenModal,
+    handleAddTodo,
+  };
 };
 
-export { TodoProvider, TodoContext };
+export { useTodos };
