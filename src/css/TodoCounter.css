@@ -10,3 +10,7 @@
 .TodoTaskCounter {
   color: #ebe645;
 }
+
+.TodoCounter--loading {
+  opacity: 0.25;
+}

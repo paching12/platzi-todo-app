@@ -33,3 +33,7 @@
   outline: none;
   border: none;
 }
+
+.TodoSearch:disable {
+  opacity: 0.25;
+}

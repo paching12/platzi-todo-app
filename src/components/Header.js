@@ -4,7 +4,7 @@ import React from "react";
 import "../css/Header.css";
 
 // Components
-import { Switch } from "./Switch";
+// import { Switch } from "./Switch";
 
 const Header = () => {
   return (

@@ -5,7 +5,7 @@ import "../css/TodoSearch.css";
 
 // Context
 
-function TodoSearch({ search, setSearch }) {
+function TodoSearch({ search, setSearch, loading }) {
   const onSearchValue = (e) => {
     setSearch(e.target.value);
   };
@@ -16,6 +16,7 @@ function TodoSearch({ search, setSearch }) {
       placeholder="Cebolla"
       onChange={onSearchValue}
       value={search}
+      disable={loading ? "true" : "false"}
     />
   );
 }

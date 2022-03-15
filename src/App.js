@@ -44,8 +44,12 @@ const App = () => {
           <span className="title">To-DO MACHINE</span>
           <span className="TodoIcon">🙌</span>
         </p>
-        <TodoHeader>
-          <TodoCounter totalTodos={todos} completedTodos={completedTodos} />
+        <TodoHeader loading={loading}>
+          <TodoCounter
+            totalTodos={todos}
+            completedTodos={completedTodos}
+            // loading={loading}
+          />
           <TodoSearch search={search} setSearch={setSearch} />
         </TodoHeader>
         <TodoList
