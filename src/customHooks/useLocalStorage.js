@@ -4,7 +4,7 @@ export const useLocalStorage = (itemName, initState = []) => {
   const [items, setItems] = React.useState(initState);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(false);
-  const [storageChange, setStorageChange] = React.useState(false);
+  const [sync, setSync] = React.useState(false);
 
   React.useEffect(() => {
     setTimeout(() => {
@@ -26,6 +26,14 @@ export const useLocalStorage = (itemName, initState = []) => {
     }, 1500);
   }, []);
 
+  React.useEffect(() => {
+    if (sync) {
+      const localStorageItem = localStorage.getItem(itemName);
+      console.log("updated", JSON.parse(localStorageItem));
+      if (localStorageItem) setItems(JSON.parse(localStorageItem));
+    }
+  }, [sync, itemName]);
+
   const saveItems = (newItems) => {
     try {
       const stringifyTodo = JSON.stringify(newItems);
@@ -44,7 +52,7 @@ export const useLocalStorage = (itemName, initState = []) => {
     setLoading,
     error,
     setError,
-    storageChange,
-    setStorageChange,
+    setSync,
+    sync,
   };
 };

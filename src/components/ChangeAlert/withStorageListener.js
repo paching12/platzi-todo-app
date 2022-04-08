@@ -2,11 +2,17 @@ import React from "react";
 
 function WithStorageListener(WrappedComponent) {
   return function WrappedComponentWithStoreListener({
-    storageChange,
-    setStorageChange,
+    show,
+    toggleChange,
+    setSync,
   }) {
+    console.log();
     return (
-      <WrappedComponent show={storageChange} toggleChange={setStorageChange} />
+      <WrappedComponent
+        show={show}
+        toggleChange={toggleChange}
+        setSync={setSync}
+      />
     );
   };
 }

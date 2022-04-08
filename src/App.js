@@ -38,10 +38,14 @@ const App = () => {
     setOpenModal,
     storageChange,
     setStorageChange,
+    setSync,
   } = useTodos();
+
   React.useEffect(() => {
     console.log("APP.JS render on todos");
-  }, [todos]);
+    console.log(storageChange);
+  }, [storageChange]);
+
   return (
     <div className="main-container">
       <Header />
@@ -119,6 +123,7 @@ const App = () => {
       <ChangeAlertWithStorageListener
         show={storageChange}
         toggleChange={setStorageChange}
+        setSync={setSync}
       />
     </div>
   );

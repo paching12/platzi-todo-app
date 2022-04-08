@@ -11,8 +11,8 @@ const useTodos = () => {
     setLoading,
     error,
     setError,
-    storageChange,
-    setStorageChange,
+    sync,
+    setSync,
   } = useLocalStorage("TODOS_V1");
 
   const completedTodos = todos.filter((element) => element.completed);
@@ -44,6 +44,7 @@ const useTodos = () => {
   const [todosFiltered, setTodosFiltered] = React.useState([]);
   const [search, setSearch] = React.useState("");
   const [openModal, setOpenModal] = React.useState(false);
+  const [storageChange, setStorageChange] = React.useState(false);
 
   const handleClickAdd = () => {
     setOpenModal(!openModal);
@@ -51,19 +52,13 @@ const useTodos = () => {
 
   React.useEffect(() => {
     setTodosFiltered(todos);
-    // console.log("NUEVOS TODOS", todos, todosFiltered);
   }, [todos]);
 
   React.useEffect(() => {
     window.addEventListener("storage", (change) => {
       if (change.key === "TODOS_V1") {
-        console.log(
-          "Hubo cambios en TODOS_V1",
-          change,
-          JSON.parse(change.newValue)
-        );
         setStorageChange(true);
-        setTodos(JSON.parse(change.newValue));
+        setSync(false);
       }
     });
     return () => {
@@ -103,6 +98,8 @@ const useTodos = () => {
     handleAddTodo,
     storageChange,
     setStorageChange,
+    sync,
+    setSync,
   };
 };
 
