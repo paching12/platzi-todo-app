@@ -4,6 +4,7 @@ export const useLocalStorage = (itemName, initState = []) => {
   const [items, setItems] = React.useState(initState);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(false);
+  const [storageChange, setStorageChange] = React.useState(false);
 
   React.useEffect(() => {
     setTimeout(() => {
@@ -37,10 +38,13 @@ export const useLocalStorage = (itemName, initState = []) => {
 
   return {
     items,
+    setItems,
     saveItems,
     loading,
     setLoading,
     error,
     setError,
+    storageChange,
+    setStorageChange,
   };
 };

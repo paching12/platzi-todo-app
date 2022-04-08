@@ -5,11 +5,14 @@ import { useLocalStorage } from "./useLocalStorage";
 const useTodos = () => {
   const {
     items: todos,
+    setItems: setTodos,
     saveItems: saveTodos,
     loading,
     setLoading,
     error,
     setError,
+    storageChange,
+    setStorageChange,
   } = useLocalStorage("TODOS_V1");
 
   const completedTodos = todos.filter((element) => element.completed);
@@ -48,7 +51,25 @@ const useTodos = () => {
 
   React.useEffect(() => {
     setTodosFiltered(todos);
+    // console.log("NUEVOS TODOS", todos, todosFiltered);
   }, [todos]);
+
+  React.useEffect(() => {
+    window.addEventListener("storage", (change) => {
+      if (change.key === "TODOS_V1") {
+        console.log(
+          "Hubo cambios en TODOS_V1",
+          change,
+          JSON.parse(change.newValue)
+        );
+        setStorageChange(true);
+        setTodos(JSON.parse(change.newValue));
+      }
+    });
+    return () => {
+      window.removeEventListener("storage");
+    };
+  }, []);
 
   React.useEffect(() => {
     const newTodos = todos.filter((todo) => {
@@ -64,6 +85,7 @@ const useTodos = () => {
   return {
     completedTodos,
     todos,
+    setTodos,
     saveTodos,
     handleComplete,
     handleDelete,
@@ -79,6 +101,8 @@ const useTodos = () => {
     openModal,
     setOpenModal,
     handleAddTodo,
+    storageChange,
+    setStorageChange,
   };
 };
 

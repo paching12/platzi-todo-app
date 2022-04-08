@@ -16,6 +16,7 @@ import { TodoForm } from "./components/todoForm";
 import { EmptyTodo } from "./components/EmptyTodo";
 import { LoaderScreen } from "./components/Loader/LoaderScreen";
 import { ItemLoading } from "./components/Loader/ItemLoading";
+import { ChangeAlertWithStorageListener } from "./components/ChangeAlert";
 
 // Portals
 import { Modal } from "./components/Modal";
@@ -35,7 +36,12 @@ const App = () => {
     setSearch,
     handleAddTodo,
     setOpenModal,
+    storageChange,
+    setStorageChange,
   } = useTodos();
+  React.useEffect(() => {
+    console.log("APP.JS render on todos");
+  }, [todos]);
   return (
     <div className="main-container">
       <Header />
@@ -110,6 +116,10 @@ const App = () => {
           <CreateButton name="add" text="+" onHandleClick={handleClickAdd} />
         </div>
       )}
+      <ChangeAlertWithStorageListener
+        show={storageChange}
+        toggleChange={setStorageChange}
+      />
     </div>
   );
 };
