@@ -55,31 +55,34 @@ const App = () => {
           />
           <TodoSearch search={search} setSearch={setSearch} />
         </TodoHeader>
-        <TodoList
-          search={search}
-          searchedTodos={todosFiltered}
-          todos={todos}
-          error={error}
-          onError={() => <p>Oh oh! Ha ocurrido un error debido al gordons</p>}
-          loading={loading}
-          onLoading={() => <LoaderScreen />}
-          onEmptyTodos={() => <EmptyTodo />}
-          onEmptySearchResults={(searchedText) => (
-            <p className="white center">
-              No hay resultados para {searchedText}
-            </p>
-          )}
-          onLoadingSkeleton={() => <ItemLoading />}
-          render={(todo, index) => (
-            <TodoItem
-              text={todo.text}
-              completed={todo.completed}
-              key={index}
-              onHandleComplete={() => handleComplete(index)}
-              onHandleDelete={() => handleDelete(todo.text)}
-            />
-          )}
-        />
+
+        {!loading && (
+          <TodoList
+            search={search}
+            searchedTodos={todosFiltered}
+            todos={todos}
+            error={error}
+            onError={() => <p>Oh oh! Ha ocurrido un error debido al gordons</p>}
+            loading={loading}
+            onLoading={() => <LoaderScreen />}
+            onEmptyTodos={() => <EmptyTodo />}
+            onEmptySearchResults={(searchedText) => (
+              <p className="white center">
+                No hay resultados para {searchedText}
+              </p>
+            )}
+            onLoadingSkeleton={() => <ItemLoading />}
+            render={(todo, index) => (
+              <TodoItem
+                text={todo.text}
+                completed={todo.completed}
+                key={index}
+                onHandleComplete={() => handleComplete(index)}
+                onHandleDelete={() => handleDelete(todo.text)}
+              />
+            )}
+          />
+        )}
         {/* <TodoList>
           {loading && <LoaderScreen />}
           {!loading && !todosFiltered.length && <EmptyTodo />}
