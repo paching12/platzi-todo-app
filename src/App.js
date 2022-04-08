@@ -36,15 +36,8 @@ const App = () => {
     setSearch,
     handleAddTodo,
     setOpenModal,
-    storageChange,
-    setStorageChange,
-    setSync,
+    syncTodos,
   } = useTodos();
-
-  React.useEffect(() => {
-    console.log("APP.JS render on todos");
-    console.log(storageChange);
-  }, [storageChange]);
 
   return (
     <div className="main-container">
@@ -120,11 +113,7 @@ const App = () => {
           <CreateButton name="add" text="+" onHandleClick={handleClickAdd} />
         </div>
       )}
-      <ChangeAlertWithStorageListener
-        show={storageChange}
-        toggleChange={setStorageChange}
-        setSync={setSync}
-      />
+      <ChangeAlertWithStorageListener sync={syncTodos} />
     </div>
   );
 };

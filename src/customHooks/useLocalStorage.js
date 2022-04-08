@@ -7,6 +7,7 @@ export const useLocalStorage = (itemName, initState = []) => {
   const [sync, setSync] = React.useState(false);
 
   React.useEffect(() => {
+    console.log("sync");
     setTimeout(() => {
       try {
         let parseItem = [];
@@ -23,16 +24,14 @@ export const useLocalStorage = (itemName, initState = []) => {
         setError(error);
       }
       setLoading(false);
+      setSync(true);
     }, 1500);
-  }, []);
+  }, [sync]);
 
-  React.useEffect(() => {
-    if (sync) {
-      const localStorageItem = localStorage.getItem(itemName);
-      console.log("updated", JSON.parse(localStorageItem));
-      if (localStorageItem) setItems(JSON.parse(localStorageItem));
-    }
-  }, [sync, itemName]);
+  const sincronize = () => {
+    setLoading(true);
+    setSync(false);
+  };
 
   const saveItems = (newItems) => {
     try {
@@ -54,5 +53,6 @@ export const useLocalStorage = (itemName, initState = []) => {
     setError,
     setSync,
     sync,
+    sincronize,
   };
 };

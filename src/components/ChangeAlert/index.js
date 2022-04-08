@@ -1,15 +1,14 @@
 import React from "react";
 import { WithStorageListener } from "./withStorageListener";
 
-const ChangeAlert = ({ show, toggleChange, setSync }) => {
+const ChangeAlert = ({ show, toggleShow }) => {
   if (show)
     return (
       <div className="white">
         <p>Hubo cambios</p>
         <button
           onClick={() => {
-            setSync(true);
-            toggleChange(false);
+            toggleShow();
           }}
         >
           Volver a cargar información
