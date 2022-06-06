@@ -7,7 +7,6 @@ export const useLocalStorage = (itemName, initState = []) => {
   const [sync, setSync] = React.useState(false);
 
   React.useEffect(() => {
-    console.log("sync");
     setTimeout(() => {
       try {
         let parseItem = [];

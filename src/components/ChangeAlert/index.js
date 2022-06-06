@@ -2,8 +2,8 @@ import React from "react";
 import { WithStorageListener } from "./withStorageListener";
 
 const ChangeAlert = ({ show, toggleShow }) => {
-  if (show)
-    return (
+  return (
+    show && (
       <div className="white">
         <p>Hubo cambios</p>
         <button
@@ -14,8 +14,8 @@ const ChangeAlert = ({ show, toggleShow }) => {
           Volver a cargar información
         </button>
       </div>
-    );
-  else return false;
+    )
+  );
 };
 
 const ChangeAlertWithStorageListener = WithStorageListener(ChangeAlert);
