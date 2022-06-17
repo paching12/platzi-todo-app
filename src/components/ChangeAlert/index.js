@@ -1,11 +1,13 @@
 import React from "react";
 import { useStorageListener } from "./useStorageListener";
 
+import '../../css/ChangeAlert.css';
+
 const ChangeAlert = (props) => {
   const { show, toggleShow } = useStorageListener(props.sync);
   return (
     show && (
-      <div className="white">
+      <div className="changeAlert">
         <p>Hubo cambios</p>
         <button
           onClick={() => {
