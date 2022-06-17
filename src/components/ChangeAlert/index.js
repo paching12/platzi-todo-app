@@ -1,7 +1,8 @@
 import React from "react";
-import { WithStorageListener } from "./withStorageListener";
+import { useStorageListener } from "./useStorageListener";
 
-const ChangeAlert = ({ show, toggleShow }) => {
+const ChangeAlert = (props) => {
+  const { show, toggleShow } = useStorageListener(props.sync);
   return (
     show && (
       <div className="white">
@@ -18,5 +19,4 @@ const ChangeAlert = ({ show, toggleShow }) => {
   );
 };
 
-const ChangeAlertWithStorageListener = WithStorageListener(ChangeAlert);
-export { ChangeAlertWithStorageListener };
+export { ChangeAlert };
