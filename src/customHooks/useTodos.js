@@ -5,14 +5,10 @@ import { useLocalStorage } from "./useLocalStorage";
 const useTodos = () => {
   const {
     items: todos,
-    setItems: setTodos,
     saveItems: saveTodos,
     loading,
-    setLoading,
     error,
-    setError,
     sync,
-    setSync,
     sincronize: syncTodos,
   } = useLocalStorage("TODOS_V1");
 
@@ -65,28 +61,32 @@ const useTodos = () => {
     setTodosFiltered(newTodos);
   }, [search, todos]);
 
-  return {
+  const states = {
     completedTodos,
     todos,
-    setTodos,
+    loading,
+    error,
+    search,
+    todosFiltered,
+    openModal,
+    sync,
+  };
+
+  const stateUpdates = {
     saveTodos,
     handleComplete,
     handleDelete,
     handleClickAdd,
-    loading,
-    setLoading,
-    error,
-    setError,
-    search,
     setSearch,
-    todosFiltered,
     setTodosFiltered,
-    openModal,
     setOpenModal,
     handleAddTodo,
-    sync,
-    setSync,
     syncTodos,
+  };
+
+  return {
+    states,
+    stateUpdates
   };
 };
 

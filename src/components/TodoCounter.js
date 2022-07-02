@@ -3,7 +3,7 @@ import React from "react";
 // Styles
 import "../css/TodoCounter.css";
 
-const TodoCounter = ({ completedTodos, totalTodos, loading }) => {
+const TodoCounter = ({ completedTodos = [], totalTodos = [], loading }) => {
   return (
     <h2 className={`TodoCounter ${loading && "TodoCounter--loading"}`}>
       Haz completado{" "}

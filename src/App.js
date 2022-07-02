@@ -23,22 +23,30 @@ import { Modal } from "./components/Modal";
 
 const App = () => {
   const {
-    handleComplete,
-    handleDelete,
+    states,
+    stateUpdates,
+  } = useTodos();
+
+  const {
     loading,
     error,
     todosFiltered,
     openModal,
-    handleClickAdd,
     todos,
     completedTodos,
     search,
     setSearch,
+    syncTodos,
+  } = states;
+
+  const {
+    handleClickAdd,
+    handleComplete,
+    handleDelete,
     handleAddTodo,
     setOpenModal,
-    syncTodos,
-  } = useTodos();
-
+  } = stateUpdates;
+  
   return (
     <div className="main-container">
       <Header />
@@ -51,7 +59,6 @@ const App = () => {
           <TodoCounter
             totalTodos={todos}
             completedTodos={completedTodos}
-            // loading={loading}
           />
           <TodoSearch search={search} setSearch={setSearch} />
         </TodoHeader>
@@ -83,21 +90,6 @@ const App = () => {
             )}
           />
         )}
-        {/* <TodoList>
-          {loading && <LoaderScreen />}
-          {!loading && !todosFiltered.length && <EmptyTodo />}
-          {error && <p>Oh oh! Ha ocurrido un error debido al gordons</p>}
-          {todosFiltered.map((item, index) => (
-            <TodoItem
-              text={item.text}
-              completed={item.completed}
-              key={index}
-              onHandleComplete={() => handleComplete(index)}
-              onHandleDelete={() => handleDelete(item.text)}
-            />
-          ))}
-          {loading && <ItemLoading />}
-        </TodoList> */}
         {!!openModal && (
           <Modal>
             <TodoForm
