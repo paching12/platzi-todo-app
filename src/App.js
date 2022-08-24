@@ -22,10 +22,7 @@ import { ChangeAlert } from "./components/ChangeAlert";
 import { Modal } from "./components/Modal";
 
 const App = () => {
-  const {
-    states,
-    stateUpdates,
-  } = useTodos();
+  const { states, stateUpdates } = useTodos();
 
   const {
     loading,
@@ -36,7 +33,6 @@ const App = () => {
     completedTodos,
     search,
     setSearch,
-    syncTodos,
   } = states;
 
   const {
@@ -45,8 +41,9 @@ const App = () => {
     handleDelete,
     handleAddTodo,
     setOpenModal,
+    syncTodos,
   } = stateUpdates;
-  
+
   return (
     <div className="main-container">
       <Header />
@@ -56,10 +53,7 @@ const App = () => {
           <span className="TodoIcon">🙌</span>
         </p>
         <TodoHeader loading={loading}>
-          <TodoCounter
-            totalTodos={todos}
-            completedTodos={completedTodos}
-          />
+          <TodoCounter totalTodos={todos} completedTodos={completedTodos} />
           <TodoSearch search={search} setSearch={setSearch} />
         </TodoHeader>
 
