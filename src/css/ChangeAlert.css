@@ -1,21 +1,19 @@
-
-
-
 .changeAlert {
-    width: 100%;
-    background: lemonchiffon;
-    text-align: center;
-    width: 100%;
-    padding: 10px 0 10px 10px;
-    position: fixed;
-    bottom: 0;
-    margin-left: -24px;
+  width: 100%;
+  background: lemonchiffon;
+  text-align: center;
+  width: 100%;
+  padding: 10px 0 10px 10px;
+  position: fixed;
+  bottom: 0;
+  margin-left: -24px;
+  z-index: 100001;
 }
 
 .changeAlert > button {
-    border: none;
-    padding: 5px;
-    border-radius: 5px;
-    background-color: #000957;
-    color: white;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #000957;
+  color: white;
 }

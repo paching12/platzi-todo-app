@@ -10,6 +10,7 @@ const useTodos = () => {
     error,
     sync,
     sincronize: syncTodos,
+    handleLoading: setLoading,
   } = useLocalStorage("TODOS_V1");
 
   const completedTodos = todos.filter((element) => element.completed);
@@ -82,11 +83,12 @@ const useTodos = () => {
     setOpenModal,
     handleAddTodo,
     syncTodos,
+    setLoading,
   };
 
   return {
     states,
-    stateUpdates
+    stateUpdates,
   };
 };
 

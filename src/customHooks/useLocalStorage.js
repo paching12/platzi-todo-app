@@ -1,6 +1,6 @@
 import React from "react";
 
-const initialState = ({initialValue}) => ({
+const initialState = ({ initialValue }) => ({
   items: initialValue,
   loading: false,
   error: false,
@@ -8,7 +8,7 @@ const initialState = ({initialValue}) => ({
 });
 
 const reducer = (state = {}, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case actionTypes.error:
       return {
         ...state,
@@ -32,84 +32,90 @@ const reducer = (state = {}, action) => {
       };
     case actionTypes.onLoading:
       return {
-        ...state, 
+        ...state,
         loading: action.payload,
-      }
-    case actionTypes.sync: 
+      };
+    case actionTypes.sync:
       return {
         ...state,
         loading: true,
         sync: false,
       };
-    default: return state;
+    default:
+      return state;
   }
-}
-
-const actionTypes = {
-  error: 'ERROR',
-  success: 'SUCCESS',
-  save: 'SAVE',
-  loading: 'LOADING',
-  sync: 'SYNC',
 };
 
+const actionTypes = {
+  error: "ERROR",
+  success: "SUCCESS",
+  save: "SAVE",
+  loading: "LOADING",
+  sync: "SYNC",
+};
 
 export const useLocalStorage = (itemName, initialValue = []) => {
-
-  const [state, dispatch] = React.useReducer(reducer, initialState({ initialValue }));
-  const {
-    items,
-    loading,
-    error,
-    sync,
-  } = state;
+  const [state, dispatch] = React.useReducer(
+    reducer,
+    initialState({ initialValue })
+  );
+  const { items, loading, error, sync } = state;
 
   // Action creators
   const onError = (error) => {
     dispatch({
       type: actionTypes.error,
-      payload: error
+      payload: error,
     });
   };
 
-  const onSuccess = ({parseItem, sync}) => {
+  const onSuccess = ({ parseItem, sync }) => {
     dispatch({
       type: actionTypes.success,
       payload: {
-        items: parseItem, 
+        items: parseItem,
         sync,
       },
     });
   };
 
-  const onSave = (items) => dispatch({
-    type: actionTypes.save,
-    payload: items,
-  });
+  const onSave = (items) =>
+    dispatch({
+      type: actionTypes.save,
+      payload: items,
+    });
 
   React.useEffect(() => {
-    setTimeout(() => {
-      let parseItem = [];
-      try {
-        const localStorageItem = localStorage.getItem(itemName);
+    if (!sync)
+      setTimeout(() => {
+        let parseItem = [];
+        try {
+          const localStorageItem = localStorage.getItem(itemName);
 
-        if (localStorageItem) {
-          parseItem = JSON.parse(localStorageItem);
-        } else {
-          localStorage.setItem(itemName, JSON.stringify(items));
+          if (localStorageItem) {
+            parseItem = JSON.parse(localStorageItem);
+          } else {
+            localStorage.setItem(itemName, JSON.stringify(items));
+          }
+        } catch (error) {
+          console.error(error);
+          onError(error);
         }
-      } catch (error) {
-        console.error(error);
-        onError(error);
-      }
 
-      onSuccess({parseItem, sync: true});
-    }, 1500);
+        onSuccess({ parseItem, sync: true });
+      }, 1000);
   }, [sync]);
 
-  const sincronize = () => dispatch({
-    type: actionTypes.sync
-  });
+  const sincronize = () =>
+    dispatch({
+      type: actionTypes.sync,
+    });
+
+  const handleLoading = (value) =>
+    dispatch({
+      type: actionTypes.onLoading,
+      payload: value,
+    });
 
   const saveItems = (newItems) => {
     try {
@@ -128,5 +134,6 @@ export const useLocalStorage = (itemName, initialValue = []) => {
     error,
     sync,
     sincronize,
+    handleLoading,
   };
 };

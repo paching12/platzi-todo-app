@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 
 // Custom hooks
@@ -23,6 +23,7 @@ import { Modal } from "./components/Modal";
 
 const App = () => {
   const { states, stateUpdates } = useTodos();
+  const [loadingScreen, setLoadingScreen] = useState(true);
 
   const {
     loading,
@@ -44,46 +45,51 @@ const App = () => {
     syncTodos,
   } = stateUpdates;
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLoadingScreen(false);
+    }, 1500);
+  }, []);
+
   return (
     <div className="main-container">
+      {loadingScreen && <LoaderScreen />}
       <Header />
       <div className="app-content">
         <p className="TodoTitle">
           <span className="title">To-DO MACHINE</span>
           <span className="TodoIcon">🙌</span>
         </p>
+
         <TodoHeader loading={loading}>
           <TodoCounter totalTodos={todos} completedTodos={completedTodos} />
           <TodoSearch search={search} setSearch={setSearch} />
         </TodoHeader>
+        <TodoList
+          search={search}
+          searchedTodos={todosFiltered}
+          todos={todos}
+          error={error}
+          onError={() => <p>Oh oh! Ha ocurrido un error debido al gordons</p>}
+          loading={loading}
+          onEmptyTodos={() => <EmptyTodo />}
+          onEmptySearchResults={(searchedText) => (
+            <p className="white center">
+              No hay resultados para {searchedText}
+            </p>
+          )}
+          onLoadingSkeleton={() => <ItemLoading />}
+          render={(todo, index) => (
+            <TodoItem
+              text={todo.text}
+              completed={todo.completed}
+              key={index}
+              onHandleComplete={() => handleComplete(index)}
+              onHandleDelete={() => handleDelete(todo.text)}
+            />
+          )}
+        />
 
-        {!loading && (
-          <TodoList
-            search={search}
-            searchedTodos={todosFiltered}
-            todos={todos}
-            error={error}
-            onError={() => <p>Oh oh! Ha ocurrido un error debido al gordons</p>}
-            loading={loading}
-            onLoading={() => <LoaderScreen />}
-            onEmptyTodos={() => <EmptyTodo />}
-            onEmptySearchResults={(searchedText) => (
-              <p className="white center">
-                No hay resultados para {searchedText}
-              </p>
-            )}
-            onLoadingSkeleton={() => <ItemLoading />}
-            render={(todo, index) => (
-              <TodoItem
-                text={todo.text}
-                completed={todo.completed}
-                key={index}
-                onHandleComplete={() => handleComplete(index)}
-                onHandleDelete={() => handleDelete(todo.text)}
-              />
-            )}
-          />
-        )}
         {!!openModal && (
           <Modal>
             <TodoForm
