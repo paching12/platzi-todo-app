@@ -8,13 +8,13 @@ const ChangeAlert = (props) => {
   return (
     show && (
       <div className="changeAlert">
-        <p>Hubo cambios</p>
+        <p>There were changes</p>
         <button
           onClick={() => {
             toggleShow();
           }}
         >
-          Volver a cargar información
+          Load information again
         </button>
       </div>
     )

@@ -5,7 +5,7 @@ const EmptyTodo = () => {
     <div className="firstTodo">
       <div className="firstTodo-icon">🗃</div>
       <p className="firstTodo-instructions">
-        Añade un nueva tarea para comenzar, selecciona el botón{" "}
+        Add a new task to start, you can select the below button 👉{" "}
         <span className="firstTodo-icon-plus">➕</span>
       </p>
     </div>

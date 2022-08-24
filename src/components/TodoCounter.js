@@ -6,11 +6,11 @@ import "../css/TodoCounter.css";
 const TodoCounter = ({ completedTodos = [], totalTodos = [], loading }) => {
   return (
     <h2 className={`TodoCounter ${loading && "TodoCounter--loading"}`}>
-      Haz completado{" "}
+      Completed{" "}
       <span className="TodoTaskCounter">
         {loading ? "-" : completedTodos.length}
       </span>{" "}
-      de{" "}
+      of{" "}
       <span className="TodoTaskCounter">
         {loading ? "-" : totalTodos.length}
       </span>{" "}

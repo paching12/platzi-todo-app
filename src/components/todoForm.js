@@ -32,11 +32,11 @@ const TodoForm = ({ handleAddTodo, setOpenModal }) => {
   return (
     <form onSubmit={onHandleSubmit} className="TodoForm">
       <div className="TodoForm-icon-title">📝</div>
-      <label>Escribe tu nuevo TODO </label>
+      <label>Write your new TODO </label>
       <textarea
         onKeyUp={onKeyUp}
         onChange={onHandleChange}
-        placeholder="Cortar la cebolla para el almuerzo"
+        placeholder="Cut onion for having lunch"
       />
       <div className="TodoForm-buttonContainer">
         <button
@@ -44,10 +44,10 @@ const TodoForm = ({ handleAddTodo, setOpenModal }) => {
           onClick={onHandleCancel}
           className="TodoForm-button TodoForm-button-cancel"
         >
-          Cancelar
+          Cancel
         </button>
         <button type="submit" className="TodoForm-button TodoForm-button-add">
-          Añadir
+          Add
         </button>
       </div>
     </form>

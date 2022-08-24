@@ -8,16 +8,12 @@ import "../../css/LoadingScreen.css";
 
 const phrases = [
   {
-    text: "En política, la estupidez no es una desventaja.",
-    autor: "Napoleón Bonaparte",
+    text: "In politics, stupidity is not a handicap.",
+    autor: "Napoleon Bonaparte",
   },
   {
-    text: "Divide y venceras",
-    autor: "Desconocido",
-  },
-  {
-    text: "Las espadas más fuertes en fuego se forjan",
-    autor: "Desconocido",
+    text: "Divide and Conquer",
+    autor: "Unknown",
   },
 ];
 

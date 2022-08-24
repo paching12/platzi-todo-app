@@ -11,17 +11,7 @@ const Header = () => {
     <div className="header">
       <div className="title-header-left">
         <span className="icon">✅</span>
-        <span className="title-header"> Lista de pendientes</span>
-      </div>
-      <div className="darkMode">
-        {/* <Switch>
-          <div className="sun">
-            <span className="toggleIcon">🌞</span>
-          </div>
-          <div className="moon">
-            <span className="toggleIcon">🌛</span>
-          </div>
-        </Switch> */}
+        <span className="title-header"> TODO list</span>
       </div>
     </div>
   );

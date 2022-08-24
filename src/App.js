@@ -70,12 +70,12 @@ const App = () => {
           searchedTodos={todosFiltered}
           todos={todos}
           error={error}
-          onError={() => <p>Oh oh! Ha ocurrido un error debido al gordons</p>}
+          onError={() => <p>Oops! There was a problem here.</p>}
           loading={loading}
           onEmptyTodos={() => <EmptyTodo />}
           onEmptySearchResults={(searchedText) => (
             <p className="white center">
-              No hay resultados para {searchedText}
+              There aren't results for {searchedText}
             </p>
           )}
           onLoadingSkeleton={() => <ItemLoading />}
