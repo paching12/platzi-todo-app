@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/platzi-todo-app/static/css/main.61b69106.css",
-    "main.js": "/platzi-todo-app/static/js/main.e453e14e.js",
+    "main.js": "/platzi-todo-app/static/js/main.bf91e0a2.js",
     "index.html": "/platzi-todo-app/index.html",
     "main.61b69106.css.map": "/platzi-todo-app/static/css/main.61b69106.css.map",
-    "main.e453e14e.js.map": "/platzi-todo-app/static/js/main.e453e14e.js.map"
+    "main.bf91e0a2.js.map": "/platzi-todo-app/static/js/main.bf91e0a2.js.map"
   },
   "entrypoints": [
     "static/css/main.61b69106.css",
-    "static/js/main.e453e14e.js"
+    "static/js/main.bf91e0a2.js"
   ]
 }
