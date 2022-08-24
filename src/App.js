@@ -33,7 +33,6 @@ const App = () => {
     todos,
     completedTodos,
     search,
-    setSearch,
   } = states;
 
   const {
@@ -42,6 +41,7 @@ const App = () => {
     handleDelete,
     handleAddTodo,
     setOpenModal,
+    setSearch,
     syncTodos,
   } = stateUpdates;
 

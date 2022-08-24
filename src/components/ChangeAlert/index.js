@@ -1,5 +1,5 @@
 import React from "react";
-import { useStorageListener } from "./useStorageListener";
+import { useStorageListener } from "../../customHooks/useStorageListener";
 
 import "../../css/ChangeAlert.css";
 
